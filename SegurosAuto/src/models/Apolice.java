@@ -15,15 +15,15 @@ public class Apolice {
 	private Corretora corretora;
 	private Veiculo veiculo;
 	private Segurado segurado;
-	private Franquia franquia;
+	private Cobertura cobertura;
 	private String status;
 	
-	public Apolice(int id, Corretora corretora, Veiculo veiculo, Segurado segurado, Franquia franquia, Calendar inicio, Calendar fim, String status){
+	public Apolice(int id, Corretora corretora, Veiculo veiculo, Segurado segurado, Cobertura cobertura, Calendar inicio, Calendar fim, String status){
 		this.id = id;
 		this.corretora  = corretora;
 		this.veiculo  = veiculo;
 		this.segurado  = segurado;
-		this.franquia  = franquia;
+		this.cobertura  = cobertura;
 		this.inicio = inicio;
 		this.fim = fim;
 		this.status = status;
@@ -74,8 +74,8 @@ public class Apolice {
 	public Segurado getSegurado(){
 		return this.segurado;
 	}
-	public Franquia getFranquia(){
-		return this.franquia;
+	public Cobertura getCobertura(){
+		return this.cobertura;
 	}
 	public void setCorretora(Corretora corretora){
 		this.corretora = corretora;
@@ -86,8 +86,8 @@ public class Apolice {
 	public void setSegurado(Segurado segurado){
 		this.segurado = segurado;
 	}
-	public void setFranquia(Franquia franquia){
-		this.franquia = franquia;
+	public void setCobertura(Cobertura cobertura){
+		this.cobertura = cobertura;
 	}
 
 }

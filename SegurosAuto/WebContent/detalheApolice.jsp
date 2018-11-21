@@ -87,7 +87,7 @@ DateFormat df = new SimpleDateFormat("dd-MM-yyyy"); %>
     <form>
         <div class="form-group pl-3">
             <label for="Nome">Status Apolice</label>
-            <input readonly type="text" class="form-control col-6 p-2" id="status" value= <%= a.getStatus() %>>
+            <input type="text" class="form-control col-6 p-2" id="status" value= <%= a.getStatus() %>>
         </div>
    </form>
 
@@ -107,7 +107,7 @@ DateFormat df = new SimpleDateFormat("dd-MM-yyyy"); %>
     <form>
         <div class="form-group pl-3">
             <label for="Nome">Nome</label>
-            <input readonly type="text" class="form-control col-6 p-2" id="Nome" value= <%=a.getSegurado().getNome() %>>
+            <input readonly type="text" class="form-control col-6 p-2" id="Nome" value="<%=a.getSegurado().getNome() %>">
         </div>
 
         <div class="form-group pl-3">
@@ -118,6 +118,26 @@ DateFormat df = new SimpleDateFormat("dd-MM-yyyy"); %>
         <div class="form-group pl-3">
             <label for="Nome">Nacionalidade</label>
             <input readonly type="text" class="form-control col-6 p-2" id="Nome" value=<%=a.getSegurado().getNacionalidade() %>>
+        </div>
+        <div class="form-group pl-3">
+            <label for="Nome">Profissao</label>
+            <input readonly type="text" class="form-control col-6 p-2" id="Nome" value=<%=a.getSegurado().getProfissao() %>>
+        </div>
+        <div class="form-group pl-3">
+            <label for="Nome">Telefone</label>
+            <input readonly type="text" class="form-control col-6 p-2" id="Nome" value=<%=a.getSegurado().getTelefone() %>>
+        </div>
+        <div class="form-group pl-3">
+            <label for="Nome">Endereço</label>
+            <input readonly type="text" class="form-control col-6 p-2" name="endereco" value="<%=a.getSegurado().getEndereco() %>">
+        </div>
+        <div class="form-group pl-3">
+            <label for="Nome">Email</label>
+            <input readonly type="text" class="form-control col-6 p-2" id="Nome" value=<%=a.getSegurado().getEmail() %>>
+        </div>
+        <div class="form-group pl-3">
+            <label for="Nome">Nascimento</label>
+            <input readonly type="text" class="form-control col-6 p-2" id="Nome" value=<%=df.format(a.getSegurado().getNascimento().getTime()) %>>
         </div>
     </form>
 
@@ -148,10 +168,25 @@ DateFormat df = new SimpleDateFormat("dd-MM-yyyy"); %>
             <label for="Nome">Modelo</label>
             <input readonly type="text" class="form-control col-6 p-2" id="modelo" value=<%=a.getVeiculo().getModelo() %>>
         </div>
-
+        <div class="form-group pl-3">
+            <label for="Nome">Combustível</label>
+            <input readonly type="text" class="form-control col-6 p-2" id="combustivel" value=<%=a.getVeiculo().getCombustivel() %>>
+        </div>
         <div class="form-group pl-3">
             <label for="Nome">Portas</label>
             <input readonly type="text" class="form-control col-6 p-2" id="portas" value=<%=a.getVeiculo().getPortas() %>>
+        </div>
+        <div class="form-group pl-3">
+            <label for="Nome">Ano de Fabricação</label>
+            <input readonly type="text" class="form-control col-6 p-2" id="anoFabricacao" value=<%=a.getVeiculo().getAnoFabricacao() %>>
+        </div>
+        <div class="form-group pl-3">
+            <label for="Nome">Nº de passageiros</label>
+            <input readonly type="text" class="form-control col-6 p-2" id="nPassageiros" value=<%=a.getVeiculo().getNum_passageiros() %>>
+        </div>
+        <div class="form-group pl-3">
+            <label for="Nome">Renavam</label>
+            <input readonly type="text" class="form-control col-6 p-2" id="renavam" value=<%=a.getVeiculo().getRenavam() %>>
         </div>
     </form>
 
@@ -170,12 +205,27 @@ DateFormat df = new SimpleDateFormat("dd-MM-yyyy"); %>
     <form>
         <div class="form-group pl-3">
             <label for="Fipe">Tipo de franquia</label>
-            <input readonly type="text" class="form-control col-6 p-2" id="fipeId" value=<%=a.getFranquia().getTipo() %>>
+            <input readonly type="text" class="form-control col-6 p-2" id="fipeId" value=<%=a.getCobertura().getTipo() %>>
         </div>
-
         <div class="form-group pl-3">
-            <label for="Nome">Cobertura</label>
-            <input readonly type="text" class="form-control col-6 p-2" id="marca" value=<%=a.getFranquia().getValor() %>>
+            <label for="Nome">Valor Coberto</label>
+            <input readonly type="text" class="form-control col-6 p-2" id="valorDeterminado" value=<%=a.getCobertura().getValorDeterminado() %>>
+        </div>
+        <div class="form-group pl-3">
+            <label for="Nome">Danos Materiais</label>
+            <input readonly type="text" class="form-control col-6 p-2" id="valorDeterminado" value=<%=a.getCobertura().getDanosMateriais() %>>
+        </div>
+        <div class="form-group pl-3">
+            <label for="Nome">Danos Corporais</label>
+            <input readonly type="text" class="form-control col-6 p-2" id="valorDeterminado" value=<%=a.getCobertura().getDanosCorporais() %>>
+        </div>
+        <div class="form-group pl-3">
+            <label for="Nome">Franquia Casco</label>
+            <input readonly type="text" class="form-control col-6 p-2" id="valorDeterminado" value=<%=a.getCobertura().getFranquiaCasco() %>>
+        </div>
+        <div class="form-group pl-3">
+            <label for="Nome">Franquia Acessorios</label>
+            <input readonly type="text" class="form-control col-6 p-2" id="valorDeterminado" value=<%=a.getCobertura().getFranquiaAcessorios() %>>
         </div>
     </form>
 
@@ -212,7 +262,7 @@ DateFormat df = new SimpleDateFormat("dd-MM-yyyy"); %>
         </div>
     </form>
     <div class="col-6">
-        <button type="button" class="btn btn-secondary btn-lg float-left">Cancelar</button>
+        <a href="IncioController" class="btn btn-secondary btn-lg float-left">Cancelar</a>
 
         <button type="button" class="btn btn-primary btn-lg float-right">Salvar</button>
 

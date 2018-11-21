@@ -41,6 +41,7 @@
     		"<div class=\"card-header\">  Apolice nº: "+ a.getId() + "</div>" +
     		"<div class=\"card-body\"> <h5 class=\"card-title\">Segurado: " + a.getSegurado().getNome() + "</h5>" +
     		"<p class=\"card-text\"> Período:" + df.format(a.getInicio().getTime()) + " até " + df.format(a.getFim().getTime()) + "</p> " + 
+    		"<p class=\"card-text\"> Status: " + a.getStatus() + "</p> " +
     		"<a href=\"#\" class=\"btn btn-primary float-left\">Editar</a>" +
     		"<a href=\"ApoliceController?id=" + a.getId() +"\" class=\"btn btn-primary float-right\">Detalhes</a>" +
     		"</div>" +

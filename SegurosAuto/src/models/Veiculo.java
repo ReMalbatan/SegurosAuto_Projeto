@@ -1,34 +1,28 @@
 package models;
 
 public class Veiculo {
-	int id;
 	String codigoFipe;
 	String marca;
 	String modelo;
+	String combustivel;
 	int portas;
-	/*String anoModelo;
 	String anoFabricacao;
-	String noPassageiros;
-	String Chassi;
-	String Renavam;
-	String Classe;*/
+	int num_passageiros;
+	String renavam;
 	
-	public Veiculo(int id, String codigoFipe, String marca, String modelo, int portas) {
+	public Veiculo(String codigoFipe, String marca, String modelo, String combustivel, int portas, String anoFabricacao,
+			int num_passageiros, String renavam) {
 		super();
-		this.id = id;
 		this.codigoFipe = codigoFipe;
 		this.marca = marca;
 		this.modelo = modelo;
+		this.combustivel = combustivel;
 		this.portas = portas;
+		this.anoFabricacao = anoFabricacao;
+		this.num_passageiros = num_passageiros;
+		this.renavam = renavam;
 	}
 	
-	
-	public int getId() {
-		return id;
-	}
-	public void setId(int id) {
-		this.id = id;
-	}
 	public String getCodigoFipe() {
 		return codigoFipe;
 	}
@@ -47,11 +41,35 @@ public class Veiculo {
 	public void setModelo(String modelo) {
 		this.modelo = modelo;
 	}
+	public String getCombustivel() {
+		return combustivel;
+	}
+	public void setCombustivel(String combustivel) {
+		this.combustivel = combustivel;
+	}
 	public int getPortas() {
 		return portas;
 	}
 	public void setPortas(int portas) {
 		this.portas = portas;
+	}
+	public String getAnoFabricacao() {
+		return anoFabricacao;
+	}
+	public void setAnoFabricacao(String anoFabricacao) {
+		this.anoFabricacao = anoFabricacao;
+	}
+	public int getNum_passageiros() {
+		return num_passageiros;
+	}
+	public void setNum_passageiros(int num_passageiros) {
+		this.num_passageiros = num_passageiros;
+	}
+	public String getRenavam() {
+		return renavam;
+	}
+	public void setRenavam(String renavam) {
+		this.renavam = renavam;
 	}
 	
 	

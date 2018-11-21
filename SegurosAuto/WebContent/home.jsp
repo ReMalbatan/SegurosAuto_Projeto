@@ -29,7 +29,7 @@
                     <a class="nav-link" href="#">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Fazer Orçamento</a>
+                    <a class="nav-link" href="OrcamentoController">Fazer Orçamento</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link disabled" href="ApoliceController">Listar Apólices</a>
@@ -48,7 +48,7 @@
             </div>
             <div class="col-sm">
                 
-                    <img src="imagens/imagem_seguro_carro.jpg" class="img-circle" alt="Responsive image">
+                    <img src="imagem_seguro_carro.jpg" class="img-circle" alt="Responsive image">
                 </div>
                 <div class="col-sm">
                     

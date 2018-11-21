@@ -10,9 +10,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import models.Apolice;
 import models.Corretora;
-import models.Franquia;
 import models.Segurado;
 import models.Veiculo;
+import models.Cobertura;
 
 //import database.ApoliceDAO;
 
@@ -58,10 +58,8 @@ public class ApoliceController extends HttpServlet {
 		    cal_inicio.set(Calendar.DAY_OF_MONTH, 20);
 		        //apoliceDAO = new ApoliceDAO();
 		    this.apolices.clear();
-		    this.apolices.add(new Apolice(2,new Corretora("Porto", "1234-5678", "corretora@corretora.net", "Joao"), new Veiculo(5, "12345", "Audi", "A3", 5), new Segurado(21, "Renan", "123.456.789-00", "Brasileiro"), new Franquia("Basica", "1500"), cal_inicio, cal_inicio, "Ativo" ));
-		    this.apolices.add(new Apolice(10,new Corretora("Porto", "1234-5678", "corretora@corretora.net", "Joao"), new Veiculo(5, "12345", "Audi", "A3", 5), new Segurado(21, "Rafael", "123.456.789-00", "Brasileiro"), new Franquia("Basica", "1500"), cal_inicio, cal_inicio, "Ativo" ));
-		    this.apolices.add(new Apolice(100,new Corretora("Porto", "1234-5678", "corretora@corretora.net", "Joao"), new Veiculo(5, "12345", "Audi", "A3", 5), new Segurado(21, "Jose", "123.456.789-00", "Argentino"), new Franquia("Basica", "1500"), cal_inicio, cal_inicio, "Ativo" ));
-
+		    this.apolices.add(new Apolice(100, new Corretora("Seguros-Auto", "12345-6789", "seguros@seguros.net", "Joao"), new Veiculo("1234", "VW", "Up", "Flex", 5, "2014", 5, "12s2f12"), new Segurado("Renan", "123.456.789-00", "masculino", "brasileiro", "estudante", "1234-5678", "Av teste, 123", "renan@renan.com", cal_inicio), new Cobertura("compreensivo", 55123, 60000, 100000, 100000, 2000, 2000), cal_inicio,cal_inicio, "Ativo"));
+		    this.apolices.add(new Apolice(101, new Corretora("Seguros-Auto", "12345-6789", "seguros@seguros.net", "Joao"), new Veiculo("1234", "BMW", "M3", "Flex", 5, "2014", 5, "12s2f12"), new Segurado("Rafael", "123.456.789-00", "masculino", "argentino", "estudante", "1234-5678", "Av teste, 123", "renan@renan.com", cal_inicio), new Cobertura("compreensivo", 55123, 60000, 100000, 100000, 2000, 2000), cal_inicio,cal_inicio, "Ativo"));
 		    //this.apolices.add(new Apolice(2,"Itau", "Fox", "Rafael", "Basica", cal_inicio, cal_inicio, "Ativo" ));
 		    //this.apolices.add(new Apolice(10,"Porto", "UP", "Renan", "Basica", cal_inicio, cal_inicio, "Ativo" ));
 			request.setAttribute("lista", this.apolices);
