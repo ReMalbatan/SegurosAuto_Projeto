@@ -1,5 +1,6 @@
 package servlets;
 import java.io.IOException;
+import java.sql.SQLException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -8,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import daos.ApoliceDAO;
 import models.Apolice;
 import models.Corretora;
 import models.Segurado;
@@ -58,8 +60,13 @@ public class ApoliceController extends HttpServlet {
 		    cal_inicio.set(Calendar.DAY_OF_MONTH, 20);
 		        //apoliceDAO = new ApoliceDAO();
 		    this.apolices.clear();
-		    this.apolices.add(new Apolice(100, new Corretora("Seguros-Auto", "12345-6789", "seguros@seguros.net", "Joao"), new Veiculo("1234", "VW", "Up", "Flex", 5, "2014", 5, "12s2f12"), new Segurado("Renan", "123.456.789-00", "masculino", "brasileiro", "estudante", "1234-5678", "Av teste, 123", "renan@renan.com", cal_inicio), new Cobertura("compreensivo", 55123, 60000, 100000, 100000, 2000, 2000), cal_inicio,cal_inicio, "Ativo"));
-		    this.apolices.add(new Apolice(101, new Corretora("Seguros-Auto", "12345-6789", "seguros@seguros.net", "Joao"), new Veiculo("1234", "BMW", "M3", "Flex", 5, "2014", 5, "12s2f12"), new Segurado("Rafael", "123.456.789-00", "masculino", "argentino", "estudante", "1234-5678", "Av teste, 123", "renan@renan.com", cal_inicio), new Cobertura("compreensivo", 55123, 60000, 100000, 100000, 2000, 2000), cal_inicio,cal_inicio, "Ativo"));
+		    ApoliceDAO apoliceDAO = new ApoliceDAO();
+		    try {
+				this.apolices = apoliceDAO.getAll();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		    //this.apolices.add(new Apolice(2,"Itau", "Fox", "Rafael", "Basica", cal_inicio, cal_inicio, "Ativo" ));
 		    //this.apolices.add(new Apolice(10,"Porto", "UP", "Renan", "Basica", cal_inicio, cal_inicio, "Ativo" ));
 			request.setAttribute("lista", this.apolices);
@@ -70,7 +77,13 @@ public class ApoliceController extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doGet(request, response);
+		String button = request.getParameter("button");
+		if ("button1".equals(button)) {
+			Apolice apoliceAtual = (Apolice) request.getAttribute("apolice");
+			apoliceAtual.setStatus(request.getParameter("status"));
+			System.out.println(apoliceAtual.getStatus());
+			//apoliceDAO.updateApolice();
+        }
 	}
 
 }

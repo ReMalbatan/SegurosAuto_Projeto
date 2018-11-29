@@ -8,10 +8,11 @@ public class Veiculo {
 	int portas;
 	String anoFabricacao;
 	int num_passageiros;
-	String renavam;
+
+	double valorFipe;
 	
 	public Veiculo(String codigoFipe, String marca, String modelo, String combustivel, int portas, String anoFabricacao,
-			int num_passageiros, String renavam) {
+			int num_passageiros, double valorFipe) {
 		super();
 		this.codigoFipe = codigoFipe;
 		this.marca = marca;
@@ -20,7 +21,15 @@ public class Veiculo {
 		this.portas = portas;
 		this.anoFabricacao = anoFabricacao;
 		this.num_passageiros = num_passageiros;
-		this.renavam = renavam;
+		this.valorFipe = valorFipe;
+	}
+	
+	public double getValorFipe() {
+		return valorFipe;
+	}
+
+	public void setValorFipe(double valorFipe) {
+		this.valorFipe = valorFipe;
 	}
 	
 	public String getCodigoFipe() {
@@ -65,12 +74,7 @@ public class Veiculo {
 	public void setNum_passageiros(int num_passageiros) {
 		this.num_passageiros = num_passageiros;
 	}
-	public String getRenavam() {
-		return renavam;
-	}
-	public void setRenavam(String renavam) {
-		this.renavam = renavam;
-	}
+	
 	
 	
 }

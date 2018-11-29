@@ -1,7 +1,10 @@
 package servlets;
 import models.Apolice;
+import daos.ApoliceDAO;
 
 import java.io.IOException;
+import java.sql.SQLException;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -37,8 +40,13 @@ public class OrcamentoController extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		ApoliceDAO apoliceDAO = new ApoliceDAO();
+		try {
+			apoliceDAO.getAll();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		String fipeId = request.getParameter("fipeId");
 		String marca = request.getParameter("marca");
@@ -60,8 +68,14 @@ public class OrcamentoController extends HttpServlet {
 		String nascimento = request.getParameter("nascimento");
 		String genero = request.getParameter("genero");
 		
-		String tipoFranquia = request.getParameter("tipoFranquia");
-		String valorCobertura = request.getParameter("valorCobertura");
+		String tipoCobertura = request.getParameter("tipoCobertura");
+		String valorMercado = request.getParameter("valorDeterminado");
+		String valorDeterminado = request.getParameter("valorDeterminado");
+		String danosMateriais = request.getParameter("danosMateriais");
+		String danosCorporais = request.getParameter("danosCorporais");
+		String franquiaCasco = request.getParameter("franquiaCasco");
+		String franquiaAcessorios = request.getParameter("franquiaAcessorios");
+		
 		
 		System.out.println(nome);
 	}

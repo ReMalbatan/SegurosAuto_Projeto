@@ -125,7 +125,7 @@ DateFormat df = new SimpleDateFormat("dd-MM-yyyy"); %>
         </div>
         <div class="form-group pl-3">
             <label for="Nome">Telefone</label>
-            <input readonly type="text" class="form-control col-6 p-2" id="Nome" value=<%=a.getSegurado().getTelefone() %>>
+            <input readonly type="text" class="form-control col-6 p-2" id="Nome" value="<%=a.getSegurado().getTelefone() %>">
         </div>
         <div class="form-group pl-3">
             <label for="Nome">Endereço</label>
@@ -183,10 +183,6 @@ DateFormat df = new SimpleDateFormat("dd-MM-yyyy"); %>
         <div class="form-group pl-3">
             <label for="Nome">Nº de passageiros</label>
             <input readonly type="text" class="form-control col-6 p-2" id="nPassageiros" value=<%=a.getVeiculo().getNum_passageiros() %>>
-        </div>
-        <div class="form-group pl-3">
-            <label for="Nome">Renavam</label>
-            <input readonly type="text" class="form-control col-6 p-2" id="renavam" value=<%=a.getVeiculo().getRenavam() %>>
         </div>
     </form>
 
@@ -262,9 +258,10 @@ DateFormat df = new SimpleDateFormat("dd-MM-yyyy"); %>
         </div>
     </form>
     <div class="col-6">
-        <a href="IncioController" class="btn btn-secondary btn-lg float-left">Cancelar</a>
-
-        <button type="button" class="btn btn-primary btn-lg float-right">Salvar</button>
+        <a href="InicioController" class="btn btn-secondary btn-lg float-left">Cancelar</a>
+	<form action="${pageContext.request.contextPath}/myservlet" method="post">
+		<button type="submit" name="button" value="button1">Salvar</button>
+	</form>
 
     </div>
 
