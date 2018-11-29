@@ -48,6 +48,40 @@ public class ApoliceDAO {
 		  return cal;
 	}
 	
+	public void generate(Apolice apol) throws SQLException{
+		Statement statement = null;
+		this.connect = ApoliceDAO.getConnection();
+		try{
+			statement = this.connect.createStatement();
+			String insertStatement = "INSERT INTO Apolice VALUES ("+
+			apol.getInicio()+","+
+			apol.getFim()+","+
+			apol.getStatus()+","+
+			apol.getCorretora()+","+
+			apol.getSegurado()+","+
+			apol.getCobertura().getTipo()+","+
+			apol.getCobertura().getValorDeterminado()+","+
+			apol.getCobertura().getDanosMateriais()+","+
+			apol.getCobertura().getDanosCorporais()+","+
+			apol.getCobertura().getFranquiaCasco()+","+
+			apol.getCobertura().getFranquiaAcessorios()+","+
+			apol.getVeiculo()+
+			")";
+			statement.executeQuery(insertStatement);	
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+		finally{
+			if (statement != null){
+				statement.close();
+			}
+			if(this.connect != null){
+				this.connect.close();
+			}
+		}
+	}
+	
 	public ArrayList<Apolice> getAll() throws SQLException{
 		Statement statement = null;
 		ArrayList<Apolice> temp = new ArrayList<Apolice>();
