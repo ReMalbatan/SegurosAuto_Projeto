@@ -1,9 +1,16 @@
 package servlets;
 import models.Apolice;
+import models.Cobertura;
+import models.Segurado;
+import models.Veiculo;
 import daos.ApoliceDAO;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -51,12 +58,10 @@ public class OrcamentoController extends HttpServlet {
 		String fipeId = request.getParameter("fipeId");
 		String marca = request.getParameter("marca");
 		String modelo = request.getParameter("modelo");
-		String combustive = request.getParameter("combustivel");
-		String portas =  request.getParameter("portas");
+		String combustivel = request.getParameter("combustivel");
+		int portas = Integer.parseInt(request.getParameter("portas"));
 		String fabricacao = request.getParameter("fabricacao");
-		String nPassageiros = request.getParameter("nPassageiros");
-		String renavam = request.getParameter("renavam");
-		String condutor = request.getParameter("condutor");
+		int nPassageiros = Integer.parseInt(request.getParameter("nPassageiros"));
 		
 		String nome = request.getParameter("nome");
 		String cpf = request.getParameter("cpf");
@@ -76,6 +81,20 @@ public class OrcamentoController extends HttpServlet {
 		String franquiaCasco = request.getParameter("franquiaCasco");
 		String franquiaAcessorios = request.getParameter("franquiaAcessorios");
 		
+		SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+		Date date;
+		Calendar cal = Calendar.getInstance();
+		try {
+			date = sdf.parse(nascimento);
+			cal.setTime(date);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		Veiculo newVeiculo = new Veiculo(fipeId, marca, modelo, combustivel, portas, fabricacao, nPassageiros, 0.0);
+		Segurado newSegurado = new Segurado(nome, cpf, genero, nacionalidade, profissao, telefone, endereco, email, cal);
+		Cobertura newCobertura = new Cobertura(tipoCobertura,0.0 , Double.parseDouble(valorDeterminado), Double.parseDouble(danosMateriais), Double.parseDouble(danosCorporais), Double.parseDouble(franquiaCasco), Double.parseDouble(franquiaAcessorios));
 		
 		System.out.println(nome);
 	}

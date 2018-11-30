@@ -48,7 +48,7 @@ public class ApoliceDAO {
 		  return cal;
 	}
 	
-	public void generate(Apolice apol) throws SQLException{
+	public void create(Apolice apol) throws SQLException{
 		Statement statement = null;
 		this.connect = ApoliceDAO.getConnection();
 		try{
@@ -80,6 +80,13 @@ public class ApoliceDAO {
 				this.connect.close();
 			}
 		}
+	}
+	
+	public void update(String atributo, String valor, String id) throws SQLException {
+		Statement statement = null;
+		this.connect = ApoliceDAO.getConnection();
+		statement = this.connect.createStatement();
+		statement.executeUpdate("UPDATE Apolice SET "+ atributo + "= \""+ valor +"\" WHERE id=" + id);
 	}
 	
 	public ArrayList<Apolice> getAll() throws SQLException{

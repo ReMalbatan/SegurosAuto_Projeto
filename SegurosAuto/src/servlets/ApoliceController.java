@@ -3,6 +3,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -78,11 +79,19 @@ public class ApoliceController extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String button = request.getParameter("button");
-		if ("button1".equals(button)) {
-			Apolice apoliceAtual = (Apolice) request.getAttribute("apolice");
-			apoliceAtual.setStatus(request.getParameter("status"));
-			System.out.println(apoliceAtual.getStatus());
-			//apoliceDAO.updateApolice();
+		if ("salvar".equals(button)) {
+			ApoliceDAO apoliceDao = new ApoliceDAO();
+			try {
+				apoliceDao.update("status", request.getParameter("status"), request.getParameter("idApolice"));
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			finally {
+				System.out.println("Finally");
+				response.sendRedirect(request.getContextPath() + "/ApoliceController");
+			}
+			
         }
 	}
 

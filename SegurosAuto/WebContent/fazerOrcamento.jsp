@@ -41,10 +41,7 @@
                             <input class="form-control" type="text" name="fabricacao"><br>
                             Número de Passageiros<br>
                             <input class="form-control" type="text" name="nPassageiros"><br>
-                            Renavam<br>
-                            <input class="form-control" type="text" name="renavam"><br>
-                            Nome do Condutor<br>
-                            <input class="form-control" type="text" name="condutor"><br>                  
+
                          
                     </div>
                 </div>
