@@ -17,8 +17,10 @@ public class Apolice {
 	private Segurado segurado;
 	private Cobertura cobertura;
 	private String status;
+	private double premio;
 	
-	public Apolice(int id, Corretora corretora, Veiculo veiculo, Segurado segurado, Cobertura cobertura, Calendar inicio, Calendar fim, String status){
+	public Apolice(int id, Corretora corretora, Veiculo veiculo, Segurado segurado, 
+			Cobertura cobertura, Calendar inicio, Calendar fim, String status, double premio){
 		this.id = id;
 		this.corretora  = corretora;
 		this.veiculo  = veiculo;
@@ -27,6 +29,7 @@ public class Apolice {
 		this.inicio = inicio;
 		this.fim = fim;
 		this.status = status;
+		this.premio = premio;
 	}
 	
 	public String getStatus() {

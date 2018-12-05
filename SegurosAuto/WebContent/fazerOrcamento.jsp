@@ -1,5 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+<%@page import="models.Veiculo"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="java.text.DateFormat"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,27 +25,54 @@
             <a class="navbar-brand" href="#">Novo Orçamento</a>
         </nav><br> 
 		<form action="${pageContext.request.contextPath}/OrcamentoController" method="post" >
+		<%
+		Veiculo veiculoSelecionado = (Veiculo) request.getAttribute("veiculoSelecionado");
+		ArrayList <Veiculo> veiculos = (ArrayList<Veiculo>) request.getAttribute("listaVeiculos");
+		Veiculo tempVeiculo = new Veiculo ("123","ABC", "modelo", "combustivel", 5, "1997", 3, 40000.00);
+		veiculos.add(tempVeiculo);
+		 %>
         <div class="row">
             <!-- Formulário Veículo -->
             <div class="col-sm">
                     <div class="card">
-                        
-                            <div class="card-header">Dados do Veículo</div>
-                            
-                            Código (FIPE)<br>
-                            <input class="form-control" type="text" name="fipeId"><br>  
-                            Marca<br>
-                            <input class="form-control" type="text" name="marca"><br>
+
+					<div class="card-header">Dados do Veículo</div>
+					<label>Codigo Fipe</label>
+					<div class="row">
+					
+					<div class="col-9">
+						<select name="fipeId">
+							<%
+								for (Veiculo v : veiculos) {
+									String selected = (veiculoSelecionado != null
+											&& veiculoSelecionado.getCodigoFipe().equals(v.getCodigoFipe())) ? " selected " : " ";
+									out.print("<option" + selected + "value=\"" + v.getCodigoFipe() + "\">" + v.getCodigoFipe() + " - "
+											+ v.getModelo() + " / " + v.getMarca() + "</option>");
+								}
+							%>
+						</select>
+					</div>
+					<div class="col-3">
+						<button class="btn btn-primary btn-sm float-right" type="submit"
+							name="button" value="buscar">Buscar Carro</button>
+					</div>
+					</div>
+
+
+
+
+					Marca<br>
+                            <input class="form-control" type="text" name="marca" value="<%= (veiculoSelecionado == null )? "" : veiculoSelecionado.getMarca() %>"><br>
                             Modelo<br>
-                            <input class="form-control" type="text" name="modelo"><br>
+                            <input class="form-control" type="text" name="modelo" value="<%= (veiculoSelecionado == null )? "" : veiculoSelecionado.getModelo() %>"><br>
                             Combustível<br>
-                            <input class="form-control" type="text" name="combustivel"><br>
+                            <input class="form-control" type="text" name="combustivel" value="<%= (veiculoSelecionado == null )? "" : veiculoSelecionado.getCombustivel() %>"><br>
                             Portas<br>
-                            <input class="form-control" type="text" name="portas"><br>    
+                            <input  class="form-control" type="text" name="portas" value="<%= (veiculoSelecionado == null )? "" : veiculoSelecionado.getPortas() %>"><br>    
                             Ano de Fabricação<br>
-                            <input class="form-control" type="text" name="fabricacao"><br>
+                            <input  class="form-control" type="text" name="fabricacao" value="<%= (veiculoSelecionado == null )? "" : veiculoSelecionado.getAnoFabricacao() %>"><br>
                             Número de Passageiros<br>
-                            <input class="form-control" type="text" name="nPassageiros"><br>
+                            <input  class="form-control" type="text" name="nPassageiros" value="<%= (veiculoSelecionado == null )? "" : veiculoSelecionado.getNum_passageiros() %>"><br>
 
                          
                     </div>
@@ -79,17 +111,17 @@
                         Tipo de Cobertura<br>
            	 			<input readonly type="text" class="form-control col-6 p-2" id="tipoCobertura" value="Compreensivo">
                         
-                        Valor mercado (FIPE)<br>
-                        <input class="form-control" type="text" name=valorMercado><br><br>
+                        Valor de mercado (FIPE)<br>
+                        <input  class="form-control" type="text" name=valorMercado value="<%= (veiculoSelecionado == null )? "" : veiculoSelecionado.getValorFipe() %>"><br><br>
                         
                         Valor determinado<br>
                         <input class="form-control" type="text" name=valorDeterminado><br><br>
                         
                         Danos materiais<br>
-                        <input class="form-control" type="text" name=danosMateriais>
+                        <input class="form-control" type="text" name=danosMateriais value="100000.00">
                         
                         Danos corporais<br>
-                        <input class="form-control" type="text" name=danosCorporais><br><br>
+                        <input class="form-control" type="text" name=danosCorporais value="100000.00"><br><br>
                         
                         Franquia Casco<br>
                         <p><input type="radio" name="franquiaCasco" value="majorada"> Majorada</p>
@@ -97,12 +129,11 @@
    						<p><input type="radio" name="franquiaCasco" value="reduzida"> Reduzida</p>
                 		
                 		Franquia acessórios<br>
-                        <p><input type="radio" name="franquiaAcessorios" value="sim"> Sim</p>
-   						<p><input type="radio" name="franquiaAcessorios" value="nao"> Nao</p>                		
+                        <input class="form-control" type="text" name=franquiaAcessorios value="0.0">               		
                 </div>
                 <div class="mt-2">
                 	<a href="InicioController"  class="btn btn-primary btn-sm"> Voltar ao Início</a>
-        			<button  class="btn btn-primary btn-sm float-right" type="submit">Gerar Orçamento</button>
+        			<button  class="btn btn-primary btn-sm float-right" name="button" value="orcar" type="submit">Gerar Orçamento</button>
                 </div>
             </div>
         </div>

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+    <%@page import="models.*"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,6 +17,11 @@
 <title>Insert title here</title>
 </head>
 <body>
+<%
+		Segurado seg = (Segurado) request.getAttribute("Segurado");
+		Veiculo veic = (Veiculo) request.getAttribute("Veiculo");
+		Cobertura cobert = (Cobertura) request.getAttribute("Cobertura");
+%>
 <div class="containter">
         <nav class=" navbar navbar-dark bg-dark navbar-expand-lg">
             <a class="navbar-brand" href="#">Orçamento do Seguro</a>
@@ -28,34 +34,39 @@
                 </tr>
                 <tr>
                     <td>Casco</td>
-                    <td>R$1.000,00</td>
+                    <td>R$<%=String.format("%.2f",cobert.getPremioCasco()) %></td>
                 </tr>
                 <tr>
                     <td>Acessórios</td>
-                    <td>R$1.000,00</td>
+                    <td>R$<%=String.format("%.2f",cobert.getPremioAcessorios()) %></td>
                 </tr>
                 <tr>
                     <td>Danos Materiais</td>
-                    <td>R$1.000,00</td>
+                    <td>R$<%=String.format("%.2f",cobert.getPremioDanosMateriais()) %></td>
                 </tr>
                 <tr>
-                    <td>Danos Materiais</td>
-                    <td>R$1.000,00</td>
+                    <td>Danos Corporais</td>
+                    <td>R$<%=String.format("%.2f",cobert.getPremioDanosCorporais()) %></td>
                 </tr>
                 <tr>
                     <td>Prêmio Líquido</td>
-                    <td>R$1.000,00</td>
+                    <td>R$<%=String.format("%.2f",cobert.getPremioTotal()/1.0738) %></td>
                 </tr>
                 <tr>
-                    <td>Prêmio Total</td>
-                    <td>R$1.000,00</td>
-                </tr>    
+                    <td>IOF</td>
+                    <td>R$<%=String.format("%.2f",(cobert.getPremioTotal() - cobert.getPremioTotal()/1.0738))%></td>
+                </tr>
+                <tr>
+                    <td>Premio Total</td>
+                    <td>R$<%=String.format("%.2f",(cobert.getPremioTotal()))%></td>
+
+                </tr>
             </table>
             <br>
         <div>
-            <button class="btn btn-primary">Comprar Seguro</button>
             <button class="btn btn-primary">Voltar Formulários</button>  
             <button class="btn btn-primary"> Cancelar</button>
+            <button class="btn btn-primary btn-lg" type="submit" name="button" value="comprar">Comprar Seguro</button>
         </div>
     </div>
 

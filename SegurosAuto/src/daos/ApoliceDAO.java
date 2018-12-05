@@ -19,10 +19,10 @@ import  java.sql.Connection;
 public class ApoliceDAO {
 	private Connection connect;
 	Random gerador = new Random();
-	
+
 	public static Connection getConnection(){
 		Connection conn = null;
-		
+
 		try{
 			System.out.println("\n\nConectando...\n\n");
 			Class.forName("com.mysql.jdbc.Driver");
@@ -38,35 +38,35 @@ public class ApoliceDAO {
 		}
 		return conn;
 	}
-	
+
 	public ApoliceDAO(){
 	}
-	
+
 	public static Calendar toCalendar(Date date){ 
-		  Calendar cal = Calendar.getInstance();
-		  cal.setTime(date);
-		  return cal;
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(date);
+		return cal;
 	}
-	
+
 	public void create(Apolice apol) throws SQLException{
 		Statement statement = null;
 		this.connect = ApoliceDAO.getConnection();
 		try{
 			statement = this.connect.createStatement();
 			String insertStatement = "INSERT INTO Apolice VALUES ("+
-			apol.getInicio()+","+
-			apol.getFim()+","+
-			apol.getStatus()+","+
-			apol.getCorretora()+","+
-			apol.getSegurado()+","+
-			apol.getCobertura().getTipo()+","+
-			apol.getCobertura().getValorDeterminado()+","+
-			apol.getCobertura().getDanosMateriais()+","+
-			apol.getCobertura().getDanosCorporais()+","+
-			apol.getCobertura().getFranquiaCasco()+","+
-			apol.getCobertura().getFranquiaAcessorios()+","+
-			apol.getVeiculo()+
-			")";
+					apol.getInicio()+","+
+					apol.getFim()+","+
+					apol.getStatus()+","+
+					apol.getCorretora()+","+
+					apol.getSegurado()+","+
+					apol.getCobertura().getTipo()+","+
+					apol.getCobertura().getValorDeterminado()+","+
+					apol.getCobertura().getDanosMateriais()+","+
+					apol.getCobertura().getDanosCorporais()+","+
+					apol.getCobertura().getFranquiaCasco()+","+
+					apol.getCobertura().getFranquiaAcessorios()+","+
+					apol.getVeiculo()+
+					")";
 			statement.executeQuery(insertStatement);	
 		}
 		catch (SQLException e) {
@@ -81,14 +81,14 @@ public class ApoliceDAO {
 			}
 		}
 	}
-	
+
 	public void update(String atributo, String valor, String id) throws SQLException {
 		Statement statement = null;
 		this.connect = ApoliceDAO.getConnection();
 		statement = this.connect.createStatement();
 		statement.executeUpdate("UPDATE Apolice SET "+ atributo + "= \""+ valor +"\" WHERE id=" + id);
 	}
-	
+
 	public ArrayList<Apolice> getAll() throws SQLException{
 		Statement statement = null;
 		ArrayList<Apolice> temp = new ArrayList<Apolice>();
@@ -96,7 +96,7 @@ public class ApoliceDAO {
 		try{
 			statement = this.connect.createStatement();
 			ResultSet resultSet = statement.executeQuery("SELECT * FROM Apolice");
-			
+
 			while (resultSet.next()){
 				int idApolice = resultSet.getInt("id");
 				Calendar data_inicio = ApoliceDAO.toCalendar(resultSet.getDate("data_Inicio"));
@@ -111,15 +111,15 @@ public class ApoliceDAO {
 				String danosCorporais = resultSet.getString("danosCorporais") ;
 				String franquiaCasco = resultSet.getString("franquiaCasco");
 				String franquiaAcessorios = resultSet.getString("franquiaAcessorios");
-				
-				
+
+
 				String getVeiculo = "SELECT * " + 
 						"FROM Veiculo v " + 
 						"WHERE v.CODIGO_FIPE = " + Veiculo_FK;
 				Statement statement1 = this.connect.createStatement();
 				ResultSet veiculoSet = statement1.executeQuery(getVeiculo);
 				veiculoSet.next();
-				
+
 				String marca = veiculoSet.getString("Marca");
 				String cod_FIPE = (new Integer(veiculoSet.getInt("codigo_FIPE"))).toString();
 				String modelo = veiculoSet.getString("Modelo");
@@ -128,14 +128,14 @@ public class ApoliceDAO {
 				int numPassageiros = veiculoSet.getInt("Numero_Passageiros");
 				String ano_fabricacao = veiculoSet.getString("Ano_fabricacao");
 				double valorFipe = veiculoSet.getDouble("Valor_Fipev");
-				
+
 				String getSegurado = "SELECT * " + 
 						"FROM Segurado s " + 
 						"WHERE s.id = " + (new Integer(segurado_FK).toString());
 				Statement statement2 = this.connect.createStatement();
 				ResultSet seguradoSet = statement2.executeQuery(getSegurado);
 				seguradoSet.next();
-				
+
 				int idSegurado = seguradoSet.getInt("id");
 				String nome = seguradoSet.getString("Nome");
 				String CPF = seguradoSet.getString("CPF");
@@ -147,34 +147,38 @@ public class ApoliceDAO {
 				String endereco = seguradoSet.getString("Endereco");
 				String email = seguradoSet.getString("Email");
 				String telefone = seguradoSet.getString("Telefone");
-				
+
 				String getCorretora = "SELECT * " + 
 						"FROM Corretora c " + 
 						"WHERE c.id = " + (new Integer(corretora_FK).toString());
+
+				Corretora tempCorretora = new Corretora("SegurosAuto", "12345", "corretora@corretora", "");
+				Veiculo tempVeiculo = new Veiculo (cod_FIPE,marca, modelo, combustivel, portas, ano_fabricacao, numPassageiros, valorFipe);
+				Segurado tempSegurado = new Segurado(nome, CPF, sexo, nacionalidade, profissao, telefone, endereco, email, data_nascimento);
+				Cobertura tempCobertura = new Cobertura("Compreensivo" , valorFipe, Double.parseDouble(valorDeterminado), Double.parseDouble(danosMateriais), Double.parseDouble(danosCorporais));
 				
-				Apolice newApolice = new Apolice(idApolice, new Corretora("SegurosAuto", "12345", "corretora@corretora", ""),
-						new Veiculo (cod_FIPE,marca, modelo, combustivel, portas, ano_fabricacao, numPassageiros, valorFipe), new Segurado(nome, CPF, sexo, nacionalidade, profissao, telefone, endereco, email, data_nascimento), 
-						new Cobertura("Compreensivo" , valorFipe, Double.parseDouble(valorDeterminado), Double.parseDouble(danosMateriais), Double.parseDouble(danosCorporais), Double.parseDouble(franquiaCasco), Double.parseDouble(franquiaAcessorios)),
-						data_inicio, data_fim, status);
-				
+				Apolice newApolice = new Apolice(idApolice,tempCorretora, tempVeiculo, tempSegurado, tempCobertura, data_inicio,data_fim,status,0.0);
+
+
+
 				temp.add(newApolice);
-				
-				
-				
+
+
+
 				/*String veiculo = resultSet.getString("veiculo");
 				String segurado = resultSet.getString("segurado");
 				String franquia = resultSet.getString("franquia");
-				
+
 				Date inicio_temp = resultSet.getDate("inicio");
 				Calendar inicio = Calendar.getInstance();
 				inicio.setTime(inicio_temp);
-				
+
 				Date fim_temp = resultSet.getDate("fim");
 				Calendar fim = Calendar.getInstance();
 				fim.setTime(fim_temp);
-				
+
 				String status = resultSet.getString("status");*/
-				
+
 				/*
 				Apolice novaApolice = new Apolice(corretora, veiculo, segurado, franquia, inicio, fim, status);
 				novaApolice.setId(resultSet.getInt("id"));
@@ -188,14 +192,37 @@ public class ApoliceDAO {
 			if (statement != null){
 				statement.close();
 			}
-			
+
 			if(this.connect != null){
 				this.connect.close();
 			}
-			
+
 		}
 		return temp;
 	}
 	
-	
+	public void createApolice(Apolice a) throws SQLException{
+		Statement statement = null;
+		this.connect = ApoliceDAO.getConnection();
+		try{
+			statement = this.connect.createStatement();
+			
+			ResultSet resultSet = statement.executeQuery("SELECT * FROM Apolice");
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+		finally{
+			if (statement != null){
+				statement.close();
+			}
+
+			if(this.connect != null){
+				this.connect.close();
+			}
+
+		}
+	}
+
+
 }

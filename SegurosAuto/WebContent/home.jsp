@@ -48,7 +48,7 @@
             </div>
             <div class="col-sm">
                 
-                    <img src="imagem_seguro_carro.jpg" class="img-circle" alt="Responsive image">
+                    <img src="<%=request.getContextPath()%>/img/seguro.jpg" class="img-circle" alt="Responsive image"/>
                 </div>
                 <div class="col-sm">
                     

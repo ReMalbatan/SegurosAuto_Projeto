@@ -23,6 +23,7 @@ public class Veiculo {
 		this.num_passageiros = num_passageiros;
 		this.valorFipe = valorFipe;
 	}
+
 	
 	public double getValorFipe() {
 		return valorFipe;
