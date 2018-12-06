@@ -1,6 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-    <%@page import="models.*"%>
+<%@page import="models.*"%>
+<%@page import="daos.ApoliceDAO"%>
+<%@page import="java.text.DateFormat"%>
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="java.util.Calendar"%>
+    
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,8 +23,6 @@
 </head>
 <body>
 <%
-		Segurado seg = (Segurado) request.getAttribute("Segurado");
-		Veiculo veic = (Veiculo) request.getAttribute("Veiculo");
 		Cobertura cobert = (Cobertura) request.getAttribute("Cobertura");
 %>
 <div class="containter">
@@ -64,9 +67,11 @@
             </table>
             <br>
         <div>
+         <form action="${pageContext.request.contextPath}/OrcamentoController" method="post">
             <button class="btn btn-primary">Voltar Formulários</button>  
             <button class="btn btn-primary"> Cancelar</button>
-            <button class="btn btn-primary btn-lg" type="submit" name="button" value="comprar">Comprar Seguro</button>
+            <button  class="btn btn-primary btn-sm float-right" name="button" value="comprar" type="submit">Comprar Seguro</button>
+        </form>
         </div>
     </div>
 

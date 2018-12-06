@@ -4,6 +4,7 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.text.DateFormat"%>
+<%@page import="daos.ApoliceDAO"%>
 
 <!DOCTYPE html>
 <html>
@@ -109,7 +110,7 @@
                 <div class="card">                      
                 	<div class="card-header">Coberturas</div>
                         Tipo de Cobertura<br>
-           	 			<input readonly type="text" class="form-control col-6 p-2" id="tipoCobertura" value="Compreensivo">
+           	 			<input type="text" class="form-control col-6 p-2" name="tipoCobertura" value="Compreensivo">
                         
                         Valor de mercado (FIPE)<br>
                         <input  class="form-control" type="text" name=valorMercado value="<%= (veiculoSelecionado == null )? "" : veiculoSelecionado.getValorFipe() %>"><br><br>

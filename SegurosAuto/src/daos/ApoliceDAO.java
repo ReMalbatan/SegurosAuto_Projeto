@@ -7,9 +7,13 @@ import models.Segurado;
 import models.Veiculo;
 
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -48,40 +52,6 @@ public class ApoliceDAO {
 		return cal;
 	}
 
-	public void create(Apolice apol) throws SQLException{
-		Statement statement = null;
-		this.connect = ApoliceDAO.getConnection();
-		try{
-			statement = this.connect.createStatement();
-			String insertStatement = "INSERT INTO Apolice VALUES ("+
-					apol.getInicio()+","+
-					apol.getFim()+","+
-					apol.getStatus()+","+
-					apol.getCorretora()+","+
-					apol.getSegurado()+","+
-					apol.getCobertura().getTipo()+","+
-					apol.getCobertura().getValorDeterminado()+","+
-					apol.getCobertura().getDanosMateriais()+","+
-					apol.getCobertura().getDanosCorporais()+","+
-					apol.getCobertura().getFranquiaCasco()+","+
-					apol.getCobertura().getFranquiaAcessorios()+","+
-					apol.getVeiculo()+
-					")";
-			statement.executeQuery(insertStatement);	
-		}
-		catch (SQLException e) {
-			e.printStackTrace();
-		}
-		finally{
-			if (statement != null){
-				statement.close();
-			}
-			if(this.connect != null){
-				this.connect.close();
-			}
-		}
-	}
-
 	public void update(String atributo, String valor, String id) throws SQLException {
 		Statement statement = null;
 		this.connect = ApoliceDAO.getConnection();
@@ -103,8 +73,8 @@ public class ApoliceDAO {
 				Calendar data_fim = ApoliceDAO.toCalendar(resultSet.getDate("data_Fim"));
 				String status = resultSet.getString("status");
 				int corretora_FK = resultSet.getInt("Corretora_FK");
-				int segurado_FK = resultSet.getInt("Segurado_Fk") + gerador.nextInt(30);
-				int Veiculo_FK = resultSet.getInt("Veiculo_FK") + gerador.nextInt(40);
+				int segurado_FK = resultSet.getInt("Segurado_Fk");
+				int Veiculo_FK = resultSet.getInt("Veiculo_FK");
 				String tipoCobertura = resultSet.getString("tipoCobertura");
 				String valorDeterminado = resultSet.getString("valorDeterminado");
 				String danosMateriais =  resultSet.getString("danosMateriais");
@@ -136,7 +106,7 @@ public class ApoliceDAO {
 				ResultSet seguradoSet = statement2.executeQuery(getSegurado);
 				seguradoSet.next();
 
-				int idSegurado = seguradoSet.getInt("id");
+				//int idSegurado = seguradoSet.getInt("id");
 				String nome = seguradoSet.getString("Nome");
 				String CPF = seguradoSet.getString("CPF");
 				String sexo = seguradoSet.getString("Sexo");
@@ -201,27 +171,83 @@ public class ApoliceDAO {
 		return temp;
 	}
 	
-	public void createApolice(Apolice a) throws SQLException{
-		Statement statement = null;
-		this.connect = ApoliceDAO.getConnection();
-		try{
-			statement = this.connect.createStatement();
-			
-			ResultSet resultSet = statement.executeQuery("SELECT * FROM Apolice");
-		}
-		catch (SQLException e) {
-			e.printStackTrace();
-		}
-		finally{
-			if (statement != null){
-				statement.close();
-			}
-
+	public int getLastId(String tabela, String[] param, String[] paramValues) throws SQLException{
+        String parametros = "";
+        String values = "";
+        
+        int id=0;
+        
+        try {
+        	for(String s : param) {
+        		parametros += s + ",";
+        		values += "?,";
+        	}
+        	parametros = parametros.substring(0, parametros.length() - 1);
+        	values = values.substring(0, values.length() - 1);
+        	
+        	this.connect = ApoliceDAO.getConnection();
+            
+            PreparedStatement ps=this.connect.prepareStatement("insert into " + tabela + " (" + parametros + ") values("+ values + ")",Statement.RETURN_GENERATED_KEYS);
+            
+            for (int i = 1; i <= paramValues.length; i ++) {
+            	if(param[i-1].equals("data_Fim") || param[i-1].equals("data_Inicio")) {
+            		DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+            		Date date = df.parse(paramValues[i - 1]);
+            		ps.setDate(i, new java.sql.Date(date.getTime()));
+            	}
+            	else {
+            		ps.setString(i, paramValues[i - 1]);
+            	}
+            	
+            }
+                      
+            ps.executeUpdate();
+            ResultSet rs=ps.getGeneratedKeys();
+            
+            if(rs.next()){
+                id=rs.getInt(1);
+            }
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        finally{
 			if(this.connect != null){
 				this.connect.close();
 			}
 
 		}
+        
+        return id;    
+    }
+	
+	public void createApolice(Apolice a) throws SQLException{
+		/*String [] veiculoParamNames = {"Valor_Fipev", "Ano_Fabricacao", "Numero_Passageiros", "Portas", "Combustivel", "Modelo", "Marca", "CODIGO_FIPE"};
+		String [] veiculoParamValues = {Double.toString(a.getVeiculo().getValorFipe()) ,a.getVeiculo().getAnoFabricacao(),
+				Integer.toString(a.getVeiculo().getNum_passageiros()), Integer.toString(a.getVeiculo().getPortas()) ,a.getVeiculo().getCombustivel(),
+				a.getVeiculo().getModelo() ,a.getVeiculo().getMarca() ,a.getVeiculo().getCodigoFipe().toString()};
+		this.getLastId("Veiculo", veiculoParamNames, veiculoParamValues);*/
+		
+		SimpleDateFormat s = new SimpleDateFormat("dd/MM/yyyy");
+		String[] SeguradoParamNames = {"Telefone", "Email", "Endereco", "CNH", "Profissao", "Data_Nascimento", "Nacionalidade", "Sexo", "CPF", "Nome"};
+		String[] SeguradoParamValues = {a.getSegurado().getTelefone(),a.getSegurado().getEmail(), a.getSegurado().getEndereco(), a.getSegurado().getCpf(), a.getSegurado().getProfissao(),
+				s.format(a.getSegurado().getNascimento().getTime()), a.getSegurado().getNacionalidade(), a.getSegurado().getSexo(), a.getSegurado().getCpf(), a.getSegurado().getNome()};
+		int Segurado_Fk = this.getLastId("Segurado", SeguradoParamNames, SeguradoParamValues);
+		
+		String[] corretoraParamNames = {"Telefone_Corretor", "Email_Corretor", "Corretor", "Email", "Telefone", "Nome"};
+		String[] corretoraParamValues = {"12345678", "corretor@corretor", "Jao Silva", "jao@jao.com", "12345678", "MeuSeguro"};
+		int Corretora_FK = this.getLastId("Corretora", corretoraParamNames, corretoraParamValues);
+		
+		String[] apoliceParamNames = {"Veiculo_FK", "franquiaAcessorios", "franquiaCasco", "danosCorporais", "danosMateriais", "valorDeterminado",
+				"tipoCobertura", "Segurado_FK", "Corretora_FK", "status", "data_Fim", "data_Inicio"};
+		
+		String[] apoliceParamValues = {a.getVeiculo().getCodigoFipe(),Double.toString(a.getCobertura().getFranquiaAcessorios()),
+				Double.toString(a.getCobertura().getFranquiaCasco()), Double.toString(a.getCobertura().getDanosCorporais()),
+				Double.toString(a.getCobertura().getDanosMateriais()), Double.toString(a.getCobertura().getValorDeterminado()), a.getCobertura().getTipo(),
+				Integer.toString(Segurado_Fk), Integer.toString(Corretora_FK), a.getStatus(), s.format(a.getFim().getTime()), s.format(a.getInicio().getTime())};
+		
+		int id_apolice = this.getLastId("Apolice", apoliceParamNames, apoliceParamValues);
+		System.out.println("Novo Id da apolice = " + id_apolice);
 	}
 
 
