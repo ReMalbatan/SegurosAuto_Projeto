@@ -1,17 +1,23 @@
 package models;
 
 public class Corretora {
+	int id;
 	String nome;
 	String telefone;
 	String email;
 	String corretor;
 	
-	public Corretora(String nome, String telefone, String email, String corretor) {
+	public Corretora(int id, String nome, String telefone, String email, String corretor) {
 		super();
+		this.id = id;
 		this.nome = nome;
 		this.telefone = telefone;
 		this.email = email;
 		this.corretor = corretor;
+	}
+	
+	public int getId(){
+		return this.id;
 	}
 	public String getNome() {
 		return nome;

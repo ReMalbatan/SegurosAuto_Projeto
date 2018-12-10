@@ -266,28 +266,29 @@
 
 
 		<div class="form-group pl-3">
-			<label for="Fipe">Corretora</label> <input readonly type="text"
-				class="form-control col-6 p-2" id="fipeId"
+			<label for="Fipe">Corretora</label> <input type="text"
+				class="form-control col-6 p-2" name="nomeCorretora"
 				value="<%=a.getCorretora().getNome()%>">
 		</div>
 
 		<div class="form-group pl-3">
-			<label for="Nome">Telefone</label> <input readonly type="text"
-				class="form-control col-6 p-2" id="marca"
+			<label for="Nome">Telefone</label> <input type="text"
+				class="form-control col-6 p-2" name="telefoneCorretora"
 				value="<%=a.getCorretora().getTelefone()%>">
 		</div>
 		<div class="form-group pl-3">
-			<label for="Fipe">Email</label> <input readonly type="text"
-				class="form-control col-6 p-2" id="fipeId"
+			<label for="Fipe">Email</label> <input type="text"
+				class="form-control col-6 p-2" name="emailCorretora"
 				value="<%=a.getCorretora().getEmail()%>">
 		</div>
 
 		<div class="form-group pl-3">
-			<label for="Nome">Corretor responsável</label> <input readonly
-				type="text" class="form-control col-6 p-2" id="marca"
+			<label for="Nome">Corretor responsável</label> <input type="text" class="form-control col-6 p-2" name="corretor"
 				value="<%=a.getCorretora().getCorretor()%>">
 		</div>
-
+		
+		<input type="hidden" name="idCorretora" value="<%=a.getCorretora().getId()%>">
+		
 		<div class="col-6">
 			<a href="InicioController"
 				class="btn btn-secondary btn-lg float-left">Cancelar</a>

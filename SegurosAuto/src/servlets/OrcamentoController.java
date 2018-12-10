@@ -134,7 +134,7 @@ public class OrcamentoController extends HttpServlet {
 
 
 
-			Corretora corretora = new Corretora ("AutoSeguros", "123456", "email@email.com", "Jao Silva");
+			Corretora corretora = new Corretora (0,"", "", "", "");
 			DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 			Calendar calInicio = Calendar.getInstance();
 			Calendar calFim = Calendar.getInstance();

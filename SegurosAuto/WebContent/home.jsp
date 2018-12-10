@@ -34,6 +34,9 @@
                 <li class="nav-item">
                     <a class="nav-link disabled" href="ApoliceController">Listar Apólices</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link disabled" href="RelatorioController">Gerar Relatorio</a>
+                </li>
             </ul>
         </div>
         <form class="form-inline">
@@ -48,8 +51,10 @@
             </div>
             <div class="col-sm">
                 
-                    <img src="<%=request.getContextPath()%>/img/seguro.jpg" class="img-circle" alt="Responsive image"/>
-                </div>
+                    <h1>Olá!</h1>
+                    <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</p>
+					<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi. Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui. Donec non enim in turpis pulvinar facilisis. Ut felis. Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus</p>
+		</div>
                 <div class="col-sm">
                     
                     </div>

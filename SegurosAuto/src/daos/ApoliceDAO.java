@@ -45,6 +45,41 @@ public class ApoliceDAO {
 
 	public ApoliceDAO(){
 	}
+	
+	public void generate(Apolice apol) throws SQLException{
+		Statement statement = null;
+		this.connect = ApoliceDAO.getConnection();
+		try{
+			statement = this.connect.createStatement();
+			String insertStatement = "INSERT INTO Apolice VALUES ("+
+			apol.getInicio()+","+
+			apol.getFim()+","+
+			apol.getStatus()+","+
+			apol.getCorretora()+","+
+			apol.getSegurado()+","+
+			apol.getCobertura().getTipo()+","+
+			apol.getCobertura().getValorDeterminado()+","+
+			apol.getCobertura().getDanosMateriais()+","+
+			apol.getCobertura().getDanosCorporais()+","+
+			apol.getCobertura().getFranquiaCasco()+","+
+			apol.getCobertura().getFranquiaAcessorios()+","+
+			apol.getVeiculo()+
+			")";
+			statement.executeQuery(insertStatement);	
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+		finally{
+			if (statement != null){
+				statement.close();
+			}
+			if(this.connect != null){
+				this.connect.close();
+			}
+		}
+	}
+
 
 	public static Calendar toCalendar(Date date){ 
 		Calendar cal = Calendar.getInstance();
@@ -52,12 +87,13 @@ public class ApoliceDAO {
 		return cal;
 	}
 
-	public void update(String atributo, String valor, String id) throws SQLException {
+	public void update(String tabela, String atributo, String valor, String id) throws SQLException {
 		Statement statement = null;
 		this.connect = ApoliceDAO.getConnection();
 		statement = this.connect.createStatement();
-		statement.executeUpdate("UPDATE Apolice SET "+ atributo + "= \""+ valor +"\" WHERE id=" + id);
+		statement.executeUpdate("UPDATE " + tabela + " SET "+ atributo + "= \""+ valor +"\" WHERE id=" + id);
 	}
+	
 
 	public ArrayList<Apolice> getAll() throws SQLException{
 		Statement statement = null;
@@ -121,8 +157,18 @@ public class ApoliceDAO {
 				String getCorretora = "SELECT * " + 
 						"FROM Corretora c " + 
 						"WHERE c.id = " + (new Integer(corretora_FK).toString());
+				
+				Statement statement3 = this.connect.createStatement();
+				ResultSet corretoraSet = statement3.executeQuery(getCorretora);
+				corretoraSet.next();
+				
+				String nomeCorretora = corretoraSet.getString("Nome");
+				String telefoneCorretora = corretoraSet.getString("Telefone");
+				String emailCorretora = corretoraSet.getString("Email");
+				String corretor = corretoraSet.getString("Corretor");
+				
 
-				Corretora tempCorretora = new Corretora("SegurosAuto", "12345", "corretora@corretora", "");
+				Corretora tempCorretora = new Corretora(new Integer(corretora_FK),nomeCorretora, telefoneCorretora, emailCorretora,corretor);
 				Veiculo tempVeiculo = new Veiculo (cod_FIPE,marca, modelo, combustivel, portas, ano_fabricacao, numPassageiros, valorFipe);
 				Segurado tempSegurado = new Segurado(nome, CPF, sexo, nacionalidade, profissao, telefone, endereco, email, data_nascimento);
 				Cobertura tempCobertura = new Cobertura("Compreensivo" , valorFipe, Double.parseDouble(valorDeterminado), Double.parseDouble(danosMateriais), Double.parseDouble(danosCorporais));
@@ -235,7 +281,7 @@ public class ApoliceDAO {
 		int Segurado_Fk = this.getLastId("Segurado", SeguradoParamNames, SeguradoParamValues);
 		
 		String[] corretoraParamNames = {"Telefone_Corretor", "Email_Corretor", "Corretor", "Email", "Telefone", "Nome"};
-		String[] corretoraParamValues = {"12345678", "corretor@corretor", "Jao Silva", "jao@jao.com", "12345678", "MeuSeguro"};
+		String[] corretoraParamValues = {"", "", "", "", "", ""};
 		int Corretora_FK = this.getLastId("Corretora", corretoraParamNames, corretoraParamValues);
 		
 		String[] apoliceParamNames = {"Veiculo_FK", "franquiaAcessorios", "franquiaCasco", "danosCorporais", "danosMateriais", "valorDeterminado",
