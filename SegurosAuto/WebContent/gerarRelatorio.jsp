@@ -23,7 +23,7 @@
 <title>Relatórios - SeguroAuto</title>
 </head>
 <body>
-	<nav class=" navbar navbar-dark bg-dark navbar-expand-lg">
+	<nav class=" navbar navbar-dark bg-dark navbar-expand-lg mb-3">
 		<a class="navbar-brand" href="#">Seguros-Auto</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse"
 			data-target="#navbarSupportedContent"
@@ -34,13 +34,13 @@
 
 		<div class="collapse navbar-collapse" id="navbarSupportedContent">
 			<ul class="navbar-nav mr-auto">
-				<li class="nav-item active"><a class="nav-link" href="#">Home</a>
-				</li>
+				<li class="nav-item"><a class="nav-link"
+					href="InicioController?logado=true">Home</a></li>
 				<li class="nav-item"><a class="nav-link"
 					href="OrcamentoController">Fazer Orçamento</a></li>
-				<li class="nav-item"><a class="nav-link disabled"
+				<li class="nav-item"><a class="nav-link"
 					href="ApoliceController">Listar Apólices</a></li>
-				<li class="nav-item"><a class="nav-link disabled"
+				<li class="nav-item active"><a class="nav-link"
 					href="RelatorioController">Gerar Relatorio</a></li>
 			</ul>
 		</div>
@@ -51,35 +51,66 @@
 			<div class="col-sm">
 				<div class="text-center">
 					<h5>Apólices vendidas no último mes</h5>
-					<form action="${pageContext.request.contextPath}/RelatorioController" method="post">
-					<button class="btn btn-primary btn-sm float-right"
-						name="filtro" value="filtro-mes" type="submit">Gerar</button>
+					<form
+						action="${pageContext.request.contextPath}/RelatorioController"
+						method="post">
+						<button class="text-center btn btn-primary btn-sm" name="filtro"
+							value="filtro-mes" type="submit">Gerar</button>
 					</form>
 				</div>
 			</div>
 			<div class="col-sm">
 				<div class="text-center">
 					<h5>Apólice por status</h5>
-					<form action="${pageContext.request.contextPath}/RelatorioController" method="post">
-					<select class="form-control" name="status">
-						<option value="Ativo">Ativa</option>
-						<option value="Inativa">Inativa</option>
-						<option value="Aguardando Aprovacao">Aguardando aprovação</option>
-					</select> <br>
-					<button class="btn btn-primary btn-sm" name="filtro"
-						value="filtro-status" type="submit">Gerar</button>
+					<form
+						action="${pageContext.request.contextPath}/RelatorioController"
+						method="post">
+						<select class="form-control" name="status">
+							<option value="Ativa">Ativa</option>
+							<option value="Inativa">Inativa</option>
+							<option value="Aguardando Aprovacao">Aguardando
+								aprovação</option>
+						</select> <br>
+						<button class="btn btn-primary btn-sm" name="filtro"
+							value="filtro-status" type="submit">Gerar</button>
 					</form>
 				</div>
 			</div>
 			<div class="col-sm">
 				<div class="text-center">
 					<h5>Apólices por vendedor</h5>
-					<form action="${pageContext.request.contextPath}/RelatorioController" method="post">
-						<label>Vendedor</label> <input class="form-control" type="text"
-							name="vendedor"><br> Data de início<br> <input
-							class="form-control" type="date" name="dataInicio"><br>
-						<br> Data de término<br> <input class="form-control"
-							type="date" name="dataFim"><br> <br>
+					<form
+						action="${pageContext.request.contextPath}/RelatorioController"
+						method="post">
+						<div class="row">
+							<div class="col-3">
+								<label>Vendedor</label>
+							</div>
+
+							<div class="col">
+								<input class="form-control" type="text" name="vendedor">
+							</div>
+						</div>
+						<br>
+						<div class="row">
+							<div class="col-3">
+								<label>Data de início</label>
+							</div>
+
+							<div class="col">
+								<input class="form-control" type="date"
+							name="dataInicio"><br>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-3">
+								<label>Data de término</label>
+							</div>
+
+							<div class="col">
+								<input class="form-control" type="date" name="dataFim"><br>
+							</div>
+						</div>
 						<button class="btn btn-primary btn-sm float-right" name="filtro"
 							value="filtro-vendedor" type="submit">Gerar</button>
 					</form>
@@ -96,7 +127,7 @@
 				<th>Nome Segurado</th>
 				<th>Data de início</th>
 				<th>Data de término</th>
-				<th>Valor do prêmio</th>
+				<th>Vendedor</th>
 				<th>Status</th>
 			</tr>
 		</thead>
@@ -111,7 +142,7 @@
 						out.print("<td>" + a.getSegurado().getNome() + "</td>");
 						out.print("<td>" + df.format(a.getInicio().getTime()) + "</td>");
 						out.print("<td>" + df.format(a.getFim().getTime()) + "</td>");
-						out.print("<td>" + a.getCobertura().getPremioTotal() + "</td>");
+						out.print("<td>" + a.getCorretora().getCorretor() + "</td>");
 						out.print("<td>" + a.getStatus() + "</td>");
 						out.print("<td> <a href=\"ApoliceController?id=" + a.getId()
 								+ "\" class=\"btn btn-primary float-right\">Detalhes</a></td>");

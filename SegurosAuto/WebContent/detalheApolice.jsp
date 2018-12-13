@@ -290,7 +290,7 @@
 		<input type="hidden" name="idCorretora" value="<%=a.getCorretora().getId()%>">
 		
 		<div class="col-6">
-			<a href="InicioController"
+			<a href="InicioController?logado=true"
 				class="btn btn-secondary btn-lg float-left">Cancelar</a>
 
 			<button class="btn btn-primary btn-lg float-right" type="submit" name="button" value="salvar">Salvar</button>

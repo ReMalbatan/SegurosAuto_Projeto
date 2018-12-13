@@ -15,31 +15,51 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/")
 public class InicioController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public InicioController() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public InicioController() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		RequestDispatcher requestDispatcher =
-		 getServletContext().getRequestDispatcher("/home.jsp");
-		requestDispatcher.forward(request, response);
+		String logado = (request.getParameter("logado") == null) ? "" : request.getParameter("logado");
+		if(!logado.equals("")) {
+			RequestDispatcher requestDispatcher =
+					getServletContext().getRequestDispatcher("/home.jsp");
+			requestDispatcher.forward(request, response);
+		}
+		else {
+			RequestDispatcher requestDispatcher =
+					getServletContext().getRequestDispatcher("/telaInicial.jsp");
+			requestDispatcher.forward(request, response);
+		}
+
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		String login = request.getParameter("login");
+		String senha = request.getParameter("senha");
+		if(!login.equals(null) && !senha.equals(null)) {
+			if(login.equals("admin") && senha.equals("admin")) {
+				RequestDispatcher requestDispatcher =
+						getServletContext().getRequestDispatcher("/home.jsp");
+				requestDispatcher.forward(request, response);
+			}
+		}
+		else {
+			RequestDispatcher requestDispatcher =
+					getServletContext().getRequestDispatcher("/telaInicial.jsp");
+			requestDispatcher.forward(request, response);
+		}
 	}
 
 }

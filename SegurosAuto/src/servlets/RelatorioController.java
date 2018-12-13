@@ -2,8 +2,12 @@ package servlets;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -84,8 +88,51 @@ public class RelatorioController extends HttpServlet {
 		}
 		else if(request.getParameter("filtro").equals("filtro-vendedor")) {
 			ArrayList<Apolice> tempApolices = new ArrayList<Apolice>();
-			String statusFiltro = request.getParameter("vendedor");
+			String vendedor = (request.getParameter("vendedor").equals(null)) ? "" : request.getParameter("vendedor");
+
+			String newDataInicial = (request.getParameter("dataInicio").equals(null)) ? "" : request.getParameter("dataInicio");
+			String newDataFinal = (request.getParameter("dataFim").equals(null)) ? "" : request.getParameter("dataFim");
+			Calendar dataInicial = null;
+			Calendar dataFinal = null;
+			if(!newDataInicial.equals("") || !newDataFinal.equals("")) {
+				dataInicial = toCalendar(newDataInicial);
+				dataFinal = toCalendar(newDataFinal);
+			}
+
+			for (Apolice a : this.apolices) {
+				if(dataInicial != null && dataFinal != null) {
+					if(dataInicial.compareTo(a.getInicio()) <= 0 && dataFinal.compareTo(a.getInicio()) >= 0) {
+						if(vendedor.equals("") || a.getCorretora().getCorretor().matches(".*"+ vendedor + ".*")) {
+							tempApolices.add(a);
+						}
+					}
+				}
+				else {
+					if(vendedor.equals("") || a.getCorretora().getCorretor().matches(".*"+ vendedor + ".*")) {
+						tempApolices.add(a);
+					}
+				}
+			}
+			request.setAttribute("lista", tempApolices);
+			RequestDispatcher requestDispatcher =
+					getServletContext().getRequestDispatcher("/gerarRelatorio.jsp");
+			requestDispatcher.forward(request, response);
+
 		}
+	}
+
+	public static Calendar toCalendar(String data){
+		DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+		Date date = null;
+		try {
+			date = formatter.parse(data);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(date);
+		return cal;
 	}
 
 

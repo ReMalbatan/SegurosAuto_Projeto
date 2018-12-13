@@ -13,7 +13,7 @@
     <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
 	<script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<title>Homepage | Seguros-Auto</title>
 </head>
 <body>
  <nav class=" navbar navbar-dark bg-dark navbar-expand-lg mb-3">
@@ -26,19 +26,30 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" href="InicioController?logado=true">Home</a>
+                    <a class="nav-link" href="#">Home</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="OrcamentoController">Fazer Orçamento</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="ApoliceController">Listar Apólices</a>
+                <li class="nav-item" onclick="loginError()">
+                    <a class="nav-link disabled" href="#">Listar Apólices</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="RelatorioController">Gerar Relatorio</a>
+                <li class="nav-item" onclick="loginError()">
+                    <a class="nav-link disabled" href="#">Gerar Relatorio</a>
                 </li>
             </ul>
         </div>
+
+		<script>
+			function loginError() {
+				alert("Por favor, faça o login primeiro.");
+			}
+		</script>
+		<form class="form-inline" action="${pageContext.request.contextPath}/InicioController" method="post">
+            <input class="form-control mr-sm-2" type="text" name="login" placeholder="Login">
+            <input class="form-control mr-sm-2" type="password" name="senha" placeholder="Senha">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Log In</button>
+        </form>
     </nav>
     <br>
     <div class="row">
@@ -46,9 +57,7 @@
             </div>
             <div class="col-sm">
                 
-                    <h1>Olá!</h1>
-                    <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</p>
-					<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi. Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui. Donec non enim in turpis pulvinar facilisis. Ut felis. Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus</p>
+                    <h1>Bem vindo ao site!</h1>
 		</div>
                 <div class="col-sm">
                     

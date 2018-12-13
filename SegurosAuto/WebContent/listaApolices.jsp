@@ -17,20 +17,31 @@
     <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
 	<script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<title>Lista de Apolices | Seguro - Auto</title>
 </head>
 <body>
-    <nav class=" navbar navbar-dark bg-dark navbar-expand-lg">
-        <a class="navbar-brand" href="#">Lista de Apólices</a>
+   <nav class=" navbar navbar-dark bg-dark navbar-expand-lg mb-3">
+		<a class="navbar-brand" href="#">Seguros-Auto</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse"
+			data-target="#navbarSupportedContent"
+			aria-controls="navbarSupportedContent" aria-expanded="false"
+			aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
 
-
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <form class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-            </form>
-        </div>
-    </nav>
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<ul class="navbar-nav mr-auto">
+				<li class="nav-item"><a class="nav-link"
+					href="InicioController?logado=true">Home</a></li>
+				<li class="nav-item"><a class="nav-link"
+					href="OrcamentoController">Fazer Orçamento</a></li>
+				<li class="nav-item active"><a class="nav-link"
+					href="ApoliceController">Listar Apólices</a></li>
+				<li class="nav-item"><a class="nav-link"
+					href="RelatorioController">Gerar Relatorio</a></li>
+			</ul>
+		</div>
+	</nav>
     
      <%
     DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
@@ -42,7 +53,6 @@
     		"<div class=\"card-body\"> <h5 class=\"card-title\">Segurado: " + a.getSegurado().getNome() + "</h5>" +
     		"<p class=\"card-text\"> Período:" + df.format(a.getInicio().getTime()) + " até " + df.format(a.getFim().getTime()) + "</p> " + 
     		"<p class=\"card-text\"> Status: " + a.getStatus() + "</p> " +
-    		"<a href=\"#\" class=\"btn btn-primary float-left\">Editar</a>" +
     		"<a href=\"ApoliceController?id=" + a.getId() +"\" class=\"btn btn-primary float-right\">Detalhes</a>" +
     		"</div>" +
     		"</div> </div>"
@@ -51,7 +61,7 @@
     %>
         
     <br>
-    <a href="InicioController" class="btn btn-primary"> Voltar ao Início</a>
+    <a href="InicioController?logado=true" class="btn btn-primary"> Voltar ao Início</a>
     <!-- Optional JavaScript -->
      <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
